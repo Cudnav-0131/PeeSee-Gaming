@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang='vi'>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PEESEE - Thiết Bị Công Nghệ</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="header-main">
+
+            <!-- KHU VỰC 1: LOGO -->
+            <div class="header-left">
+                <a href="index.html" class="logo">
+                    <img src="images/logo-peesee.png" alt="PEESEE">
+                </a>
+            </div>
+
+
+            <!-- KHU VỰC 2: DANH MỤC + TÌM KIẾM -->
+            <div class="header-center">
+
+                <div class="category-menu">
+
+                    <button class="category-btn">
+                        ☰
+                        <span>Danh mục</span>
+                    </button>
+
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <h3>Laptop</h3>
+                            <a href="#">Laptop</a>
+                            <a href="#">Laptop Gaming</a>
+                        </div>
+
+                        <div class="mega-column">
+                            <h3>PC & Linh kiện</h3>
+                            <a href="#">PC PS</a>
+                            <a href="#">Main / CPU / VGA</a>
+                            <a href="#">Case</a>
+                        </div>
+
+                        <div class="mega-column">
+                            <h3>Gaming Gear</h3>
+                            <a href="#">Bàn phím</a>
+                            <a href="#">Chuột / Lót chuột</a>
+                            <a href="#">Tai nghe</a>
+                        </div>
+
+                        <div class="mega-column">
+                            <h3>Thiết bị</h3>
+                            <a href="#">Màn hình</a>
+                            <a href="#">Loa / Micro</a>
+                            <a href="#">Ghế / Bàn</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Tìm kiếm...">
+                    <button id="search-btn">⌕</button>
+                </div>
+
+            </div>
+
+
+            <!-- KHU VỰC 3: GIỎ HÀNG + ĐĂNG NHẬP -->
+            <div class="header-right">
+
+                <a href="pages/cart.html" class="cart-btn">
+                    <img src="images/logo-cart.png" alt="Giỏ hàng">
+                    <span>Giỏ hàng</span>
+                    <span class="cart-count">0</span>
+                </a>
+
+                <a href="pages/login.html" class="login-btn">
+                    <img src="images/logo-user.png" alt="Đăng nhập">
+                    <span>Đăng nhập</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= SẢN PHẨM ================= -->
+
+    <section class="products-section">
+
+        <h2>Sản phẩm nổi bật</h2>
+
+        <div id="product-list" class="product-list"></div>
+
+    </section>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="js/data.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/home.js"></script>
+
+</body>
+
+</html>

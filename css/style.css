@@ -1,0 +1,345 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #222;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    width: 100%;
+    height: 65px;
+    background: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.header-main {
+    width: calc(100% - 80px);
+    max-width: 1600px;
+    height: 72px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 15% 55% 30%;
+
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.header-center {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+}
+
+.header-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 25px;
+}
+
+
+/* LOGO */
+
+.logo {
+    width: 90px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+.logo img {
+    width: 55px;
+    height: 55px;
+
+    object-fit: contain;
+}
+
+/* =========================
+   BUTTON DANH MỤC
+========================= */
+
+.category-menu {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.category-btn {
+    height: 42px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 8px;
+    background: #1e88e5;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    transition: 0.2s;
+}
+
+.category-btn:hover {
+    background: #1976D2;
+}
+
+
+
+/* SEARCH */
+
+.search-box {
+    height: 42px;
+    flex: 1;
+    width: 100%;
+    max-width: 700px;
+
+    display: flex;
+    align-items: center;
+
+    background: #f6f6f6;
+    border: 1px solid #eeeeee;
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.search-box input {
+    flex: 1;
+
+    height: 100%;
+
+    padding: 0 16px;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    font-size: 13px;
+}
+
+.search-box button {
+    width: 42px;
+    height: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+
+/* =========================
+   BUTTON ĐĂNG NHẬP
+========================= */
+
+.login-btn {
+    height: 42px;
+    padding: 0 18px;
+
+    border-radius: 8px;
+
+    background: #1e88e5;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    transition: 0.2s;
+}
+
+.login-btn:hover {
+    background: #1976D2;
+}
+
+.account-icon {
+    font-size: 17px;
+}
+
+.login-btn img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* =========================
+   BUTTON GIỎ HÀNG
+========================= */
+
+.cart-btn {
+    position: relative;
+
+    height: 42px;
+    padding: 0 18px;
+
+    border-radius: 8px;
+
+    background: #1e88e5;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    transition: 0.2s;
+}
+
+.cart-btn:hover {
+    background: #1976D2;
+}
+
+.cart-icon {
+    font-size: 18px;
+}
+
+
+/* Số lượng giỏ hàng */
+
+.cart-count {
+    position: absolute;
+
+    top: -7px;
+    right: -7px;
+
+    min-width: 19px;
+    height: 19px;
+
+    border-radius: 50%;
+
+    background: #1e88e5;
+    color: white;
+
+    font-size: 11px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-btn img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* =========================
+   MEGA MENU
+========================= */
+
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    width: 800px;
+    padding: 25px;
+
+    background: white;
+
+    border: 1px solid #eeeeee;
+    border-radius: 0 0 10px 10px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+    display: none;
+
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+
+    z-index: 1000;
+}
+
+
+/* Hover vào Danh mục → hiện menu */
+
+.category-menu:hover .mega-menu {
+    display: grid;
+}
+
+
+/* Click vào Danh mục → hiện menu */
+
+.category-menu.active .mega-menu {
+    display: grid;
+}
+
+
+/* =========================
+   TIÊU ĐỀ DANH MỤC
+========================= */
+
+.mega-column h3 {
+    margin: 0 0 12px;
+
+    color: #222;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   CÁC MỤC BÊN TRONG
+========================= */
+
+.mega-column a {
+    display: block;
+
+    padding: 7px 0;
+
+    color: #555;
+
+    font-size: 14px;
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+
+.mega-column a:hover {
+    color: #1e88e5;
+    padding-left: 5px;
+}
