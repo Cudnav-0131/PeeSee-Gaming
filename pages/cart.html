@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Giỏ hàng - PEESEE</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cart.css">
+</head>
+
+<body>
+
+    <!-- Header dùng chung -->
+    <div id="header"></div>
+
+
+    <!-- Nội dung giỏ hàng -->
+    <main class="cart-page">
+
+        <div class="cart-container">
+
+            <!-- Bên trái: danh sách sản phẩm -->
+            <section class="cart-content">
+
+                <h1>Giỏ hàng</h1>
+
+                <p class="cart-subtitle">
+                    Các sản phẩm bạn đã thêm vào giỏ hàng
+                </p>
+
+                <div class="cart-table-header">
+                    <span>Sản phẩm</span>
+                    <span>Đơn giá</span>
+                    <span>Số lượng</span>
+                    <span>Thành tiền</span>
+                </div>
+
+                <div id="cart-list">
+                    <p>Giỏ hàng đang trống.</p>
+                </div>
+
+                <a href="../index.html" class="continue-shopping">
+                    ← Tiếp tục mua hàng
+                </a>
+
+            </section>
+
+
+            <!-- Bên phải: tổng đơn hàng -->
+            <aside class="order-summary">
+
+                <h2>Tóm tắt đơn hàng</h2>
+
+                <div class="summary-row">
+                    <span>Tạm tính</span>
+                    <span id="subtotal">0đ</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Phí vận chuyển</span>
+                    <span>Miễn phí</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Thuế</span>
+                    <span>0đ</span>
+                </div>
+
+                <hr>
+
+                <div class="summary-total">
+                    <span>Tổng cộng</span>
+                    <strong id="order-total">0đ</strong>
+                </div>
+
+                <button class="checkout-btn">
+                    Tiến hành thanh toán
+                </button>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <!-- Header -->
+    <script src="../js/storage.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/header.js"></script>
+
+</body>
+
+</html>

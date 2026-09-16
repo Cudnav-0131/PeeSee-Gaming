@@ -124,7 +124,7 @@ a {
     height: 42px;
     flex: 1;
     width: 100%;
-    max-width: 700px;
+    max-width: none;
 
     display: flex;
     align-items: center;

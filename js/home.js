@@ -31,3 +31,33 @@ function displayProducts() {
 }
 
 displayProducts();
+function addToCart(productId) {
+
+    const products = getStorage("gaming_store_products", []);
+    const cart = getStorage("gaming_store_cart", []);
+
+    const product = products.find(item => item.id === productId);
+
+    if (!product) {
+        alert("Không tìm thấy sản phẩm!");
+        return;
+    }
+
+    const existingItem = cart.find(item => item.id === productId);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: 1
+        });
+    }
+
+    setStorage("gaming_store_cart", cart);
+
+    alert("Đã thêm sản phẩm vào giỏ hàng!");
+}

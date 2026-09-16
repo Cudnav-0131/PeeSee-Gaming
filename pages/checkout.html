@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thanh toán - PEESEE</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/checkout.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div id="header"></div>
+
+
+    <!-- Nội dung thanh toán -->
+    <main class="checkout-page">
+
+        <h1>Thanh toán</h1>
+
+        <div class="checkout-container">
+
+            <!-- Thông tin giao hàng -->
+            <section class="shipping-info">
+
+                <h2>Thông tin giao hàng</h2>
+
+                <div class="form-group">
+                    <label for="fullname">
+                        Họ và tên
+                    </label>
+
+                    <input type="text" id="fullname" placeholder="Nhập họ và tên">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="phone">
+                        Số điện thoại
+                    </label>
+
+                    <input type="tel" id="phone" placeholder="Nhập số điện thoại">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="address">
+                        Địa chỉ giao hàng
+                    </label>
+
+                    <textarea id="address" placeholder="Nhập địa chỉ nhận hàng"></textarea>
+                </div>
+
+
+                <h2>Phương thức thanh toán</h2>
+
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="cod" checked>
+
+                    <span>
+                        Thanh toán khi nhận hàng
+                    </span>
+                </label>
+
+
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="bank">
+
+                    <span>
+                        Chuyển khoản ngân hàng
+                    </span>
+                </label>
+
+            </section>
+
+
+            <!-- Tóm tắt đơn hàng -->
+            <aside class="checkout-summary">
+
+                <h2>Đơn hàng của bạn</h2>
+
+                <div id="checkout-list">
+                    <!-- Sản phẩm sẽ được hiển thị bằng JavaScript -->
+                </div>
+
+                <hr>
+
+                <div class="checkout-total">
+                    <span>Tổng thanh toán</span>
+
+                    <strong id="checkout-total">
+                        0đ
+                    </strong>
+                </div>
+
+                <button type="button" class="place-order-btn" id="place-order-btn">
+                    Đặt hàng
+                </button>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <!-- JavaScript -->
+    <script src="../js/storage.js"></script>
+    <script src="../js/checkout.js"></script>
+    <script src="../js/header.js"></script>
+
+</body>
+
+</html>
