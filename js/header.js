@@ -1,3 +1,51 @@
+function updateCartBadge() {
+    const cart = getStorage("gaming_store_cart", []);
+    const totalQuantity = cart.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+    const cartBadge = document.querySelector(".cart-count");
+
+    if (cartBadge) {
+        cartBadge.textContent = totalQuantity;
+    }
+}
+
+function updateHeaderAuthState() {
+    const currentUser = getStorage("gaming_store_current_user", null);
+    const loginBtn = document.querySelector(".login-btn");
+
+    if (!loginBtn) {
+        return;
+    }
+
+    const loginUrl = window.location.pathname.includes("/pages/") ? "login.html" : "pages/login.html";
+
+    if (!currentUser) {
+        const span = loginBtn.querySelector("span");
+        if (span) {
+            span.textContent = "Đăng nhập";
+        }
+
+        loginBtn.href = loginUrl;
+        loginBtn.removeAttribute("data-logout");
+        loginBtn.onclick = null;
+        return;
+    }
+
+    const name = currentUser.username || currentUser.email || "Tài khoản";
+    const span = loginBtn.querySelector("span");
+    if (span) {
+        span.textContent = name;
+    }
+
+    loginBtn.href = "#";
+    loginBtn.setAttribute("data-logout", "true");
+    loginBtn.onclick = function (event) {
+        event.preventDefault();
+        removeStorage("gaming_store_current_user");
+        updateHeaderAuthState();
+        window.location.href = loginUrl;
+    };
+}
+
 // Xác định đường dẫn đến Header
 const isPagesFolder = window.location.pathname.includes("/pages/");
 const headerPath = isPagesFolder
@@ -17,6 +65,12 @@ fetch(headerPath)
 
         // Chèn Header vào trang
         document.getElementById("header").innerHTML = data;
+        updateCartBadge();
+        updateHeaderAuthState();
+
+        if (typeof initSearch === "function") {
+            initSearch();
+        }
 
         // Sửa đường dẫn ảnh khi Header nằm trong pages/
         if (isPagesFolder) {

@@ -8,15 +8,26 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    min-height: 100%;
+}
+
 body {
     font-family: Arial, sans-serif;
     background: #f5f5f5;
     color: #222;
+    display: flex;
+    flex-direction: column;
 }
 
 a {
     text-decoration: none;
     color: inherit;
+}
+
+main {
+    flex: 1;
 }
 
 
@@ -342,4 +353,246 @@ a {
 .mega-column a:hover {
     color: #1e88e5;
     padding-left: 5px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.site-footer {
+    background: linear-gradient(180deg, #0a2d7a 0%, #0b225f 100%);
+    color: #edf3ff;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.footer-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 30px 30px 24px;
+
+    display: grid;
+    grid-template-columns:
+        1.1fr 1.2fr 1fr 1.3fr 1.3fr 1fr;
+
+    gap: 35px;
+    align-items: flex-start;
+}
+
+/* =========================
+   BRAND
+========================= */
+
+.footer-brand-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    min-height: 160px;
+}
+
+.footer-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-logo-block {
+    width: auto;
+    height: auto;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+}
+
+.footer-logo-block img {
+    width: 110px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* =========================
+   SOCIAL
+========================= */
+
+.footer-connect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.footer-title {
+    margin: 0;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    color: #dfe9ff;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.social-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.social-list a {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.14);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.social-list a img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+
+    background: transparent;
+}
+
+.social-list a:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* =========================
+   COLUMNS
+========================= */
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.footer-column h4 {
+    margin: 0 0 12px;
+
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.4px;
+
+    text-transform: uppercase;
+}
+
+.footer-column p,
+.footer-column a {
+    margin: 0;
+
+    color: #dbe7ff;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.footer-column a {
+    text-decoration: none;
+}
+
+.footer-column a:hover {
+    color: #ffffff;
+}
+
+/* =========================
+   INFORMATION
+========================= */
+
+.two-col-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.two-col-links a {
+    white-space: nowrap;
+}
+
+/* =========================
+   PAYMENT
+========================= */
+
+.footer-column--payments {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: -60px;
+}
+
+.payment-grid {
+    display: grid;
+    grid-template-columns: 40px 40px;
+    column-gap: 6px;
+    row-gap: 10px;
+    width: 86px;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-column--payments img {
+    width: 40px;
+    height: 24px;
+    padding: 0;
+    margin: 0;
+    object-fit: contain;
+    display: block;
+    border-radius: 4px;
+    background: transparent;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+    .footer-inner {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 35px;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-inner {
+        grid-template-columns: 1fr;
+        padding: 30px 25px;
+    }
+
+    .footer-brand-block {
+        align-items: flex-start;
+    }
+
+    .two-col-links {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.product-stock {
+    margin: 6px 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.product-card button:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
 }

@@ -141,3 +141,15 @@
 .product-card button:hover {
     background: #1976d2;
 }
+
+.product-stock {
+    margin: 6px 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.product-card button:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}

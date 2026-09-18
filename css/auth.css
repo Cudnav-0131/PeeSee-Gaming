@@ -1,0 +1,119 @@
+.auth-page {
+    min-height: calc(100vh - 65px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.auth-card {
+    width: min(100%, 440px);
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    padding: 30px 24px;
+}
+
+.auth-card h1 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 32px;
+    color: #111827;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: #1e88e5;
+    box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.08);
+}
+
+.auth-btn {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 16px;
+    background: #1e88e5;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.auth-btn:hover {
+    background: #1976d2;
+}
+
+.forgot-password-wrap {
+    margin-top: 14px;
+    text-align: right;
+}
+
+.forgot-password-wrap a {
+    color: #1e88e5;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.forgot-password-panel {
+    margin-top: 18px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.hidden {
+    display: none;
+}
+
+.auth-btn.secondary {
+    background: #10b981;
+}
+
+.auth-btn.secondary:hover {
+    background: #059669;
+}
+
+.auth-switch {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #4b5563;
+}
+
+.auth-switch a {
+    color: #1e88e5;
+    font-weight: 600;
+}

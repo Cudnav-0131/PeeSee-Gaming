@@ -1,18 +1,28 @@
 console.log("SEARCH JS ĐÃ ĐƯỢC LOAD");
 
-const searchInput = document.getElementById("search-input");
-const searchBtn = document.getElementById("search-btn");
 
 function searchProducts() {
+    const searchInput = document.getElementById("search-input");
+    const productList = document.getElementById("product-list");
+
+    if (!searchInput || !productList) {
+        console.log("Không tìm thấy ô tìm kiếm hoặc danh sách sản phẩm.");
+        return;
+    }
+
     const keyword = searchInput.value.trim().toLowerCase();
 
     const products = getStorage("gaming_store_products", []);
 
     const filteredProducts = products.filter(product => {
+        const name = String(product.name || "").toLowerCase();
+        const brand = String(product.brand || "").toLowerCase();
+        const category = String(product.category || "").toLowerCase();
+
         return (
-            product.name.toLowerCase().includes(keyword) ||
-            product.brand.toLowerCase().includes(keyword) ||
-            product.category.toLowerCase().includes(keyword)
+            name.includes(keyword) ||
+            brand.includes(keyword) ||
+            category.includes(keyword)
         );
     });
 
@@ -23,6 +33,10 @@ function searchProducts() {
 function displaySearchResults(products) {
     const productList = document.getElementById("product-list");
 
+    if (!productList) {
+        return;
+    }
+
     if (products.length === 0) {
         productList.innerHTML = `
             <p class="no-result">
@@ -32,39 +46,65 @@ function displaySearchResults(products) {
         return;
     }
 
-    productList.innerHTML = products.map(product => `
-        <div class="product-card">
+    productList.innerHTML = products.map(product => {
+        const stock = Number(product.stock || 0);
 
-            <img src="${product.image}" alt="${product.name}">
+        return `
+            <div class="product-card">
 
-            <h3>${product.name}</h3>
+                <img src="${product.image || ""}" alt="${product.name || ""}">
 
-            <p class="product-price">
-                ${product.price.toLocaleString("vi-VN")}đ
-            </p>
+                <h3>${product.name || "Sản phẩm"}</h3>
 
-            <p class="product-rating">
-                ⭐ ${product.rating} | Đã bán ${product.sold}
-            </p>
+                <p class="product-price">
+                    ${Number(product.price || 0).toLocaleString("vi-VN")}đ
+                </p>
 
-            <button onclick="addToCart('${product.id}')">
-                Thêm vào giỏ
-            </button>
+                <p class="product-rating">
+                    ⭐ ${product.rating || 0} | Đã bán ${product.sold || 0}
+                </p>
 
-        </div>
-    `).join("");
+                <p class="product-stock">
+                    ${stock <= 0
+                ? "Hết hàng"
+                : stock <= 5
+                    ? `Chỉ còn ${stock} sản phẩm`
+                    : "Còn hàng"
+            }
+                </p>
+
+                <button
+                    onclick="addToCart('${product.id}')"
+                    ${stock <= 0 ? "disabled" : ""}
+                >
+                    ${stock <= 0 ? "Hết hàng" : "Thêm vào giỏ"}
+                </button>
+
+            </div>
+        `;
+    }).join("");
 }
 
 
-/* Bấm nút tìm kiếm */
+/* =========================
+   XỬ LÝ TÌM KIẾM
+========================= */
 
-searchBtn.addEventListener("click", searchProducts);
+document.addEventListener("click", function (event) {
+    const searchButton = event.target.closest("#search-btn");
+
+    if (searchButton) {
+        searchProducts();
+    }
+});
 
 
-/* Nhấn Enter để tìm kiếm */
+document.addEventListener("keydown", function (event) {
+    if (event.key !== "Enter") {
+        return;
+    }
 
-searchInput.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
+    if (event.target && event.target.id === "search-input") {
         searchProducts();
     }
 });

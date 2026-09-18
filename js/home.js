@@ -23,16 +23,28 @@ function displayProducts() {
                 ⭐ ${product.rating} | Đã bán ${product.sold}
             </p>
 
-            <button onclick="addToCart('${product.id}')">
-                Thêm vào giỏ
+            <p class="product-stock">
+                ${Number(product.stock) <= 0
+            ? "Hết hàng"
+            : Number(product.stock) <= 5
+                ? `Chỉ còn ${product.stock} sản phẩm`
+                : "Còn hàng"
+        }
+            </p>
+
+            <button
+                onclick="addToCart('${product.id}')"
+                ${Number(product.stock) <= 0 ? "disabled" : ""}
+            >
+                ${Number(product.stock) <= 0 ? "Hết hàng" : "Thêm vào giỏ"}
             </button>
         </div>
     `).join("");
 }
 
 displayProducts();
-function addToCart(productId) {
 
+function addToCart(productId) {
     const products = getStorage("gaming_store_products", []);
     const cart = getStorage("gaming_store_cart", []);
 
@@ -43,7 +55,23 @@ function addToCart(productId) {
         return;
     }
 
+    const stock = Number(product.stock || 0);
+
+    if (stock <= 0) {
+        alert("Sản phẩm đã hết hàng.");
+        return;
+    }
+
     const existingItem = cart.find(item => item.id === productId);
+
+    const currentQuantity = existingItem
+        ? Number(existingItem.quantity || 0)
+        : 0;
+
+    if (currentQuantity >= stock) {
+        alert(`Sản phẩm "${product.name}" chỉ còn ${stock} sản phẩm.`);
+        return;
+    }
 
     if (existingItem) {
         existingItem.quantity += 1;

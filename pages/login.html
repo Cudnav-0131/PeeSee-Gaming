@@ -7,24 +7,68 @@
 
     <title>Đăng nhập - PEESEE</title>
 
-    <!-- CSS chung -->
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 
 <body>
 
-    <!-- Header -->
     <div id="header"></div>
 
+    <main class="auth-page">
+        <div class="auth-card">
+            <h1>Đăng nhập</h1>
 
-    <!-- Nội dung Login -->
-    <main>
-        <h1>Đăng nhập</h1>
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-identifier">Tên đăng nhập hoặc email</label>
+                    <input type="text" id="login-identifier" placeholder="Nhập tên đăng nhập hoặc email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Mật khẩu</label>
+                    <input type="password" id="login-password" placeholder="Nhập mật khẩu" required>
+                </div>
+
+                <button type="submit" class="auth-btn">Đăng nhập</button>
+            </form>
+
+            <p class="forgot-password-wrap">
+                <a href="#" id="forgot-password-link">Quên mật khẩu?</a>
+            </p>
+
+            <div id="forgot-password-panel" class="forgot-password-panel hidden">
+                <div class="form-group">
+                    <label for="reset-email">Email hoặc tên đăng nhập</label>
+                    <input type="text" id="reset-email" placeholder="Nhập email hoặc tên tài khoản">
+                </div>
+
+                <div class="form-group">
+                    <label for="reset-password">Mật khẩu mới</label>
+                    <input type="password" id="reset-password" placeholder="Nhập mật khẩu mới">
+                </div>
+
+                <div class="form-group">
+                    <label for="reset-confirm-password">Xác nhận mật khẩu mới</label>
+                    <input type="password" id="reset-confirm-password" placeholder="Nhập lại mật khẩu mới">
+                </div>
+
+                <button type="button" id="reset-password-btn" class="auth-btn secondary">Đặt lại mật khẩu</button>
+            </div>
+
+            <p class="auth-switch">
+                Chưa có tài khoản?
+                <a href="register.html">Đăng ký ngay</a>
+            </p>
+        </div>
     </main>
 
+    <div id="footer"></div>
 
-    <!-- JavaScript Header -->
+    <script src="../js/storage.js"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 
 </body>
 
