@@ -1,45 +1,85 @@
-function displayProducts() {
-    const productList = document.getElementById("product-list");
+async function displayProducts() {
 
-    // Lấy sản phẩm từ LocalStorage
-    const products = getStorage("gaming_store_products", []);
+    const productList =
+        document.getElementById("product-list");
 
-    if (products.length === 0) {
-        productList.innerHTML = "<p>Chưa có sản phẩm.</p>";
+    if (!productList) {
         return;
     }
 
-    productList.innerHTML = products.map(product => `
-        <div class="product-card">
-            <img src="${product.image}" alt="${product.name}">
+    // Lấy sản phẩm từ LocalStorage
+    const products =
+        getStorage("gaming_store_products", []);
 
-            <h3>${product.name}</h3>
+    if (products.length === 0) {
+        productList.innerHTML =
+            "<p>Chưa có sản phẩm.</p>";
+        return;
+    }
 
-            <p class="product-price">
-                ${product.price.toLocaleString("vi-VN")}đ
-            </p>
 
-            <p class="product-rating">
-                ⭐ ${product.rating} | Đã bán ${product.sold}
-            </p>
+    // Lấy URL ảnh từ IndexedDB
+    const productCards = await Promise.all(
 
-            <p class="product-stock">
-                ${Number(product.stock) <= 0
-            ? "Hết hàng"
-            : Number(product.stock) <= 5
-                ? `Chỉ còn ${product.stock} sản phẩm`
-                : "Còn hàng"
-        }
-            </p>
+        products.map(async product => {
 
-            <button
-                onclick="addToCart('${product.id}')"
-                ${Number(product.stock) <= 0 ? "disabled" : ""}
-            >
-                ${Number(product.stock) <= 0 ? "Hết hàng" : "Thêm vào giỏ"}
-            </button>
-        </div>
-    `).join("");
+            const imageUrl =
+                await getProductImageUrl(product.image);
+
+
+            return `
+                <div class="product-card">
+
+                    <img
+                        src="${imageUrl}"
+                        alt="${product.name}"
+                        onclick="openProductDetail('${product.id}')"
+                        style="cursor: pointer;"
+                    >
+
+                    <h3
+                        onclick="openProductDetail('${product.id}')"
+                        style="cursor: pointer;"
+                    >
+                        ${product.name}
+                    </h3>
+
+                    <p class="product-price">
+                        ${product.price.toLocaleString("vi-VN")}đ
+                    </p>
+
+                    <p class="product-rating">
+                        ⭐ ${product.rating} | Đã bán ${product.sold}
+                    </p>
+
+                    <p class="product-stock">
+                        ${Number(product.stock) <= 0
+                    ? "Hết hàng"
+                    : Number(product.stock) <= 5
+                        ? `Chỉ còn ${product.stock} sản phẩm`
+                        : "Còn hàng"
+                }
+                    </p>
+
+                    <button 
+                    onclick="event.stopPropagation(); addToCart('${product.id}')"   
+                        ${Number(product.stock) <= 0 ? "disabled" : ""}
+                    >
+                        ${Number(product.stock) <= 0
+                    ? "Hết hàng"
+                    : "Thêm vào giỏ"
+                }
+                    </button>
+
+                </div>
+            `;
+        })
+    );
+
+
+    // Hiển thị tất cả card
+    productList.innerHTML =
+        productCards.join("");
 }
 
 displayProducts();
@@ -88,4 +128,8 @@ function addToCart(productId) {
     setStorage("gaming_store_cart", cart);
 
     alert("Đã thêm sản phẩm vào giỏ hàng!");
+}
+
+function openProductDetail(productId) {
+    window.location.href = `pages/product-detail.html?id=${encodeURIComponent(productId)}`;
 }

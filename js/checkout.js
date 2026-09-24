@@ -149,4 +149,35 @@ if (placeOrderBtn) {
     placeOrderBtn.addEventListener("click", placeOrder);
 }
 
+// =========================
+// PHƯƠNG THỨC THANH TOÁN
+// =========================
+
+const paymentMethods =
+    document.querySelectorAll('input[name="payment"]');
+
+const bankTransferInfo =
+    document.getElementById("bank-transfer-info");
+
+function updatePaymentMethod() {
+    const selectedPayment =
+        document.querySelector('input[name="payment"]:checked');
+
+    if (!selectedPayment || !bankTransferInfo) {
+        return;
+    }
+
+    if (selectedPayment.value === "bank") {
+        bankTransferInfo.classList.remove("hidden");
+    } else {
+        bankTransferInfo.classList.add("hidden");
+    }
+}
+
+paymentMethods.forEach(payment => {
+    payment.addEventListener("change", updatePaymentMethod);
+});
+
+updatePaymentMethod();
+
 displayCheckout();

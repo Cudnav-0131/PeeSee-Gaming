@@ -276,7 +276,7 @@ if (addProductOverlay) {
 
 // Lưu sản phẩm
 if (addProductForm) {
-    addProductForm.addEventListener("submit", function (event) {
+    addProductForm.addEventListener("submit", async function (event) {
 
         event.preventDefault();
 
@@ -338,6 +338,28 @@ if (addProductForm) {
         }
 
 
+        const imageFile =
+            document.getElementById("product-image-file").files[0];
+
+        let imageData = "";
+
+        if (imageFile) {
+
+            if (!imageFile.type.startsWith("image/")) {
+                alert("Vui lòng chọn file hình ảnh.");
+                return;
+            }
+
+            try {
+                imageData =
+                    await convertImageToBase64(imageFile);
+            } catch (error) {
+                console.error(error);
+                alert("Không thể xử lý ảnh sản phẩm.");
+                return;
+            }
+        }
+
         const newProduct = {
             id: id,
             name: name,
@@ -347,7 +369,7 @@ if (addProductForm) {
             price: price,
             oldPrice: price,
             discount: 0,
-            image: "",
+            image: imageData,
             rating: 0,
             sold: 0,
             stock: stock,
@@ -358,10 +380,23 @@ if (addProductForm) {
 
         products.push(newProduct);
 
-        setStorage(
-            "gaming_store_products",
-            products
-        );
+        try {
+
+            setStorage(
+                "gaming_store_products",
+                products
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Không thể lưu sản phẩm. Ảnh có thể quá lớn hoặc bộ nhớ trình duyệt đã đầy."
+            );
+
+            return;
+        }
 
 
         displayAdminProducts();
@@ -374,6 +409,11 @@ if (addProductForm) {
 
         // Xóa dữ liệu form
         addProductForm.reset();
+
+        if (productImagePreview) {
+            productImagePreview.src = "";
+            productImagePreview.classList.add("hidden");
+        }
 
 
         // Đóng popup
@@ -677,99 +717,232 @@ function updateDashboard() {
 
 updateDashboard();
 
-const editProductForm = document.getElementById("edit-product-form");
+// =========================
+// LƯU THAY ĐỔI SẢN PHẨM
+// =========================
+
+const editProductForm =
+    document.getElementById("edit-product-form");
 
 if (editProductForm) {
-    editProductForm.addEventListener("submit", function (event) {
-        event.preventDefault();
 
-        const productId =
-            document.getElementById("edit-product-id").value;
+    editProductForm.addEventListener(
+        "submit",
+        async function (event) {
 
-        const name =
-            document.getElementById("edit-product-name").value.trim();
+            event.preventDefault();
 
-        const brand =
-            document.getElementById("edit-product-brand").value.trim();
+            const productId =
+                document.getElementById("edit-product-id").value;
 
-        const category =
-            document.getElementById("edit-product-category").value;
+            const name =
+                document
+                    .getElementById("edit-product-name")
+                    .value
+                    .trim();
 
-        const price =
-            Number(document.getElementById("edit-product-price").value);
+            const brand =
+                document
+                    .getElementById("edit-product-brand")
+                    .value
+                    .trim();
 
-        const oldPrice =
-            Number(document.getElementById("edit-product-old-price").value);
+            const category =
+                document
+                    .getElementById("edit-product-category")
+                    .value;
 
-        const stock =
-            Number(document.getElementById("edit-product-stock").value);
+            const price =
+                Number(
+                    document.getElementById("edit-product-price").value
+                );
 
-        const image =
-            document.getElementById("edit-product-image").value.trim();
+            const oldPrice =
+                Number(
+                    document
+                        .getElementById("edit-product-old-price")
+                        .value
+                );
 
-        const description =
-            document.getElementById("edit-product-description").value.trim();
+            const stock =
+                Number(
+                    document.getElementById("edit-product-stock").value
+                );
 
-        if (!name || !brand || !category) {
-            alert("Vui lòng nhập đầy đủ thông tin sản phẩm.");
-            return;
-        }
+            // Ảnh hiện tại
+            const currentImage =
+                document
+                    .getElementById("edit-product-image")
+                    .value
+                    .trim();
 
-        if (!Number.isFinite(price) || price < 0) {
-            alert("Giá sản phẩm không hợp lệ.");
-            return;
-        }
+            // File ảnh mới
+            const imageFile =
+                document
+                    .getElementById("edit-product-image-file")
+                    .files[0];
 
-        if (!Number.isFinite(oldPrice) || oldPrice < 0) {
-            alert("Giá cũ không hợp lệ.");
-            return;
-        }
+            const description =
+                document
+                    .getElementById("edit-product-description")
+                    .value
+                    .trim();
 
-        if (!Number.isInteger(stock) || stock < 0) {
-            alert("Số lượng tồn kho không hợp lệ.");
-            return;
-        }
 
-        const products = getStorage("gaming_store_products", []);
+            // =========================
+            // KIỂM TRA DỮ LIỆU
+            // =========================
 
-        const productIndex = products.findIndex(
-            item => item.id === productId
-        );
+            if (!name || !brand || !category) {
+                alert("Vui lòng nhập đầy đủ thông tin sản phẩm.");
+                return;
+            }
 
-        if (productIndex === -1) {
-            alert("Không tìm thấy sản phẩm.");
-            return;
-        }
+            if (!Number.isFinite(price) || price < 0) {
+                alert("Giá sản phẩm không hợp lệ.");
+                return;
+            }
 
-        let discount = 0;
+            if (!Number.isFinite(oldPrice) || oldPrice < 0) {
+                alert("Giá cũ không hợp lệ.");
+                return;
+            }
 
-        if (oldPrice > price && oldPrice > 0) {
-            discount = Math.round(
-                ((oldPrice - price) / oldPrice) * 100
+            if (!Number.isInteger(stock) || stock < 0) {
+                alert("Số lượng tồn kho không hợp lệ.");
+                return;
+            }
+
+
+            // =========================
+            // LẤY DANH SÁCH SẢN PHẨM
+            // =========================
+
+            const products =
+                getStorage("gaming_store_products", []);
+
+
+            const productIndex =
+                products.findIndex(
+                    item => item.id === productId
+                );
+
+
+            if (productIndex === -1) {
+                alert("Không tìm thấy sản phẩm.");
+                return;
+            }
+
+
+            // =========================
+            // TÍNH GIẢM GIÁ
+            // =========================
+
+            let discount = 0;
+
+            if (oldPrice > price && oldPrice > 0) {
+
+                discount =
+                    Math.round(
+                        ((oldPrice - price) / oldPrice) * 100
+                    );
+            }
+
+
+            // =========================
+            // XỬ LÝ ẢNH
+            // =========================
+
+            let image = currentImage;
+
+            if (imageFile) {
+
+                if (!imageFile.type.startsWith("image/")) {
+                    alert("Vui lòng chọn file hình ảnh.");
+                    return;
+                }
+
+                try {
+
+                    image = await convertImageToBase64(imageFile);
+
+                    console.log("Ảnh đã chuyển sang Base64.");
+                    console.log("Dung lượng chuỗi ảnh:", image.length);
+
+                } catch (error) {
+
+                    console.error("Lỗi xử lý ảnh:", error);
+
+                    alert("Có lỗi khi xử lý ảnh.");
+                    return;
+                }
+            }
+
+
+            // =========================
+            // CẬP NHẬT SẢN PHẨM
+            // =========================
+
+            products[productIndex].name =
+                name;
+
+            products[productIndex].brand =
+                brand;
+
+            products[productIndex].category =
+                category;
+
+            products[productIndex].price =
+                price;
+
+            products[productIndex].oldPrice =
+                oldPrice;
+
+            products[productIndex].discount =
+                discount;
+
+            products[productIndex].stock =
+                stock;
+
+            products[productIndex].image =
+                image;
+
+            products[productIndex].description =
+                description;
+
+
+            // =========================
+            // LƯU STORAGE
+            // =========================
+
+            setStorage(
+                "gaming_store_products",
+                products
             );
+
+
+            // Cập nhật danh sách sản phẩm
+            displayAdminProducts();
+
+
+            // =========================
+            // ĐÓNG POPUP
+            // =========================
+
+            document
+                .getElementById("edit-product-modal")
+                .classList.add("hidden");
+
+
+            alert("Đã cập nhật sản phẩm thành công.");
         }
-
-        products[productIndex].name = name;
-        products[productIndex].brand = brand;
-        products[productIndex].category = category;
-        products[productIndex].price = price;
-        products[productIndex].oldPrice = oldPrice;
-        products[productIndex].discount = discount;
-        products[productIndex].stock = stock;
-        products[productIndex].image = image;
-        products[productIndex].description = description;
-
-        setStorage("gaming_store_products", products);
-
-        displayAdminProducts();
-
-        document
-            .getElementById("edit-product-modal")
-            .classList.add("hidden");
-
-        alert("Đã cập nhật sản phẩm thành công.");
-    });
+    );
 }
+
+
+// =========================
+// ĐÓNG POPUP SỬA SẢN PHẨM
+// =========================
 
 const closeEditProduct =
     document.getElementById("close-edit-product");
@@ -780,29 +953,38 @@ const cancelEditProduct =
 const editProductOverlay =
     document.querySelector(".edit-product-overlay");
 
+
 function closeEditProductModal() {
-    const modal = document.getElementById("edit-product-modal");
+
+    const modal =
+        document.getElementById("edit-product-modal");
 
     if (modal) {
         modal.classList.add("hidden");
     }
 }
 
+
 if (closeEditProduct) {
+
     closeEditProduct.addEventListener(
         "click",
         closeEditProductModal
     );
 }
 
+
 if (cancelEditProduct) {
+
     cancelEditProduct.addEventListener(
         "click",
         closeEditProductModal
     );
 }
 
+
 if (editProductOverlay) {
+
     editProductOverlay.addEventListener(
         "click",
         closeEditProductModal
@@ -1581,3 +1763,161 @@ if (adminLogoutBtn) {
         window.location.href = "login.html";
     });
 }
+
+// =========================
+// PREVIEW ẢNH SẢN PHẨM - SỬA
+// =========================
+
+const editProductImageFile =
+    document.getElementById("edit-product-image-file");
+
+const editProductImagePreview =
+    document.getElementById("edit-product-image-preview");
+
+if (editProductImageFile && editProductImagePreview) {
+
+    editProductImageFile.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (!file) {
+            editProductImagePreview.src = "";
+            editProductImagePreview.classList.add("hidden");
+            return;
+        }
+
+        // Kiểm tra có phải file ảnh không
+        if (!file.type.startsWith("image/")) {
+            alert("Vui lòng chọn file hình ảnh.");
+            this.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+
+            editProductImagePreview.src =
+                event.target.result;
+
+            editProductImagePreview.classList.remove("hidden");
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+function convertImageToBase64(file) {
+
+    return new Promise((resolve, reject) => {
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+
+            const img = new Image();
+
+            img.onload = function () {
+
+                const maxWidth = 1200;
+                const maxHeight = 1200;
+
+                let width = img.width;
+                let height = img.height;
+
+                // Giới hạn kích thước ảnh
+                if (width > maxWidth || height > maxHeight) {
+
+                    const ratio = Math.min(
+                        maxWidth / width,
+                        maxHeight / height
+                    );
+
+                    width = Math.round(width * ratio);
+                    height = Math.round(height * ratio);
+                }
+
+                const canvas = document.createElement("canvas");
+
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext("2d");
+
+                ctx.drawImage(
+                    img,
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+                // Nén ảnh trước khi lưu
+                const compressedImage =
+                    canvas.toDataURL("image/jpeg", 0.75);
+
+                resolve(compressedImage);
+            };
+
+            img.onerror = function () {
+                reject(
+                    new Error("Không thể đọc hình ảnh.")
+                );
+            };
+
+            img.src = event.target.result;
+        };
+
+        reader.onerror = function () {
+            reject(
+                new Error("Không thể đọc file ảnh.")
+            );
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+// =========================
+// PREVIEW ẢNH - THÊM SẢN PHẨM
+// =========================
+
+const productImageFile =
+    document.getElementById("product-image-file");
+
+const productImagePreview =
+    document.getElementById("product-image-preview");
+
+if (productImageFile && productImagePreview) {
+
+    productImageFile.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (!file) {
+            productImagePreview.src = "";
+            productImagePreview.classList.add("hidden");
+            return;
+        }
+
+        if (!file.type.startsWith("image/")) {
+            alert("Vui lòng chọn file hình ảnh.");
+            this.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+
+            productImagePreview.src =
+                event.target.result;
+
+            productImagePreview.classList.remove("hidden");
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+migrateOldProductImages();

@@ -30,59 +30,88 @@ function searchProducts() {
 }
 
 
-function displaySearchResults(products) {
-    const productList = document.getElementById("product-list");
+async function displaySearchResults(products) {
+
+    const productList =
+        document.getElementById("product-list");
 
     if (!productList) {
         return;
     }
 
     if (products.length === 0) {
+
         productList.innerHTML = `
             <p class="no-result">
                 Không tìm thấy sản phẩm phù hợp.
             </p>
         `;
+
         return;
     }
 
-    productList.innerHTML = products.map(product => {
-        const stock = Number(product.stock || 0);
 
-        return `
-            <div class="product-card">
+    const productCards = await Promise.all(
 
-                <img src="${product.image || ""}" alt="${product.name || ""}">
+        products.map(async product => {
 
-                <h3>${product.name || "Sản phẩm"}</h3>
+            const stock =
+                Number(product.stock || 0);
 
-                <p class="product-price">
-                    ${Number(product.price || 0).toLocaleString("vi-VN")}đ
-                </p>
+            const imageUrl =
+                await getProductImageUrl(product.image);
 
-                <p class="product-rating">
-                    ⭐ ${product.rating || 0} | Đã bán ${product.sold || 0}
-                </p>
 
-                <p class="product-stock">
-                    ${stock <= 0
-                ? "Hết hàng"
-                : stock <= 5
-                    ? `Chỉ còn ${stock} sản phẩm`
-                    : "Còn hàng"
-            }
-                </p>
+            return `
+                <div class="product-card" onclick="openProductDetail('${product.id}')">
 
-                <button
-                    onclick="addToCart('${product.id}')"
-                    ${stock <= 0 ? "disabled" : ""}
-                >
-                    ${stock <= 0 ? "Hết hàng" : "Thêm vào giỏ"}
-                </button>
+                    <img
+                        src="${imageUrl || ""}"
+                        alt="${product.name || ""}"
+                    >
 
-            </div>
-        `;
-    }).join("");
+                    <h3>
+                        ${product.name || "Sản phẩm"}
+                    </h3>
+
+                    <p class="product-price">
+                        ${Number(product.price || 0)
+                    .toLocaleString("vi-VN")
+                }đ
+                    </p>
+
+                    <p class="product-rating">
+                        ⭐ ${product.rating || 0}
+                        | Đã bán ${product.sold || 0}
+                    </p>
+
+                    <p class="product-stock">
+                        ${stock <= 0
+                    ? "Hết hàng"
+                    : stock <= 5
+                        ? `Chỉ còn ${stock} sản phẩm`
+                        : "Còn hàng"
+                }
+                    </p>
+
+                    <button 
+                        onclick="event.stopPropagation(); addToCart('${product.id}')"
+                        ${stock <= 0 ? "disabled" : ""}
+                    >
+                        ${stock <= 0
+                    ? "Hết hàng"
+                    : "Thêm vào giỏ"
+                }
+                    </button>
+
+                </div>
+            `;
+        })
+    );
+
+
+    productList.innerHTML =
+        productCards.join("");
 }
 
 

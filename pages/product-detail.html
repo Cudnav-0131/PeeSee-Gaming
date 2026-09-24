@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chi tiết sản phẩm - PEESEE</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/product-detail.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div id="header"></div>
+
+
+    <!-- Chi tiết sản phẩm -->
+    <main class="product-detail-page">
+
+        <div class="product-detail-container">
+
+            <!-- Khu vực sản phẩm -->
+            <section class="product-detail-main">
+
+                <!-- Ảnh -->
+                <div class="product-detail-image">
+
+                    <img id="product-detail-image" src="../images/logo-peesee.png" alt="Sản phẩm">
+
+                </div>
+
+
+                <!-- Thông tin -->
+                <div class="product-detail-info">
+
+                    <p id="product-detail-brand" class="product-detail-brand">
+                        Thương hiệu
+                    </p>
+
+                    <h1 id="product-detail-name">
+                        Tên sản phẩm
+                    </h1>
+
+                    <div class="product-detail-rating">
+
+                        <span id="product-detail-rating">
+                            ⭐ 0
+                        </span>
+
+                        <span id="product-detail-sold">
+                            Đã bán 0
+                        </span>
+
+                    </div>
+
+
+                    <!-- Giá -->
+                    <div class="product-detail-price">
+
+                        <strong id="product-detail-price">
+                            0đ
+                        </strong>
+
+                        <span id="product-detail-old-price">
+                            0đ
+                        </span>
+
+                        <span id="product-detail-discount">
+                            -0%
+                        </span>
+
+                    </div>
+
+
+                    <!-- Tồn kho -->
+                    <div id="product-detail-stock" class="product-detail-stock">
+                        Còn hàng
+                    </div>
+
+
+                    <!-- Số lượng -->
+                    <div class="product-detail-quantity">
+
+                        <span>Số lượng</span>
+
+                        <div class="quantity-control">
+
+                            <button type="button" id="decrease-detail-quantity" onclick="decreaseDetailQuantity()">
+                                −
+                            </button>
+
+                            <input type="text" id="product-detail-quantity" value="1" inputmode="numeric">
+
+                            <button type="button" id="increase-detail-quantity" onclick="increaseDetailQuantity()">
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Nút mua -->
+                    <div class="product-detail-actions">
+
+                        <button type="button" id="add-detail-cart-btn" class="add-detail-cart-btn">
+                            Thêm vào giỏ
+                        </button>
+
+                        <button type="button" id="buy-now-btn" class="buy-now-btn">
+                            Mua ngay
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Mô tả -->
+            <section class="product-detail-section">
+
+                <h2>Mô tả sản phẩm</h2>
+
+                <div id="product-detail-description">
+                    Chưa có mô tả sản phẩm.
+                </div>
+
+            </section>
+
+
+            <!-- Thông số -->
+            <section class="product-detail-section">
+
+                <h2>Thông số kỹ thuật</h2>
+
+                <div id="product-detail-specifications" class="product-specifications">
+                    Chưa có thông số kỹ thuật.
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+
+    <!-- JavaScript -->
+    <script src="../js/storage.js"></script>
+    <script src="../js/image-storage.js"></script>
+    <script src="../js/product-detail.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
+
+</body>
+
+</html>

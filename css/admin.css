@@ -1518,3 +1518,24 @@
 .admin-account-menu button:hover {
     background: #fef2f2;
 }
+
+/* =========================
+   PREVIEW ẢNH SẢN PHẨM
+========================= */
+
+.product-image-preview {
+    display: block;
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #f8fafc;
+    box-sizing: border-box;
+}
+
+.product-image-preview.hidden {
+    display: none;
+}

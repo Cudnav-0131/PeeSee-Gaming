@@ -304,6 +304,14 @@
                                         <label for="product-stock">Tồn kho</label>
                                         <input type="number" id="product-stock" placeholder="Nhập số lượng">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="product-image-file">Ảnh sản phẩm</label>
+
+                                        <input type="file" id="product-image-file" accept="image/*">
+
+                                        <img id="product-image-preview" src="" alt="Xem trước ảnh"
+                                            class="product-image-preview hidden">
+                                    </div>
 
                                 </div>
 
@@ -582,8 +590,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="edit-product-image">Đường dẫn ảnh</label>
-                                <input type="text" id="edit-product-image">
+                                <label for="edit-product-image-file">Ảnh sản phẩm</label>
+
+                                <img id="edit-product-image-preview" src="" alt="Ảnh sản phẩm"
+                                    class="product-image-preview hidden">
+
+                                <input type="file" id="edit-product-image-file" accept="image/*">
+
+                                <input type="hidden" id="edit-product-image">
                             </div>
 
                             <div class="form-group edit-product-full">
@@ -611,6 +625,7 @@
             </div>
 
             <script src="../js/storage.js"></script>
+            <script src="../js/image-storage.js"></script>
             <script src="../js/admin.js"></script>
         </div>
     </div>
