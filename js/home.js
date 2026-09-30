@@ -131,5 +131,6 @@ function addToCart(productId) {
 }
 
 function openProductDetail(productId) {
-    window.location.href = `pages/product-detail.html?id=${encodeURIComponent(productId)}`;
+    window.location.href =
+        `pages/product-detail.html?id=${encodeURIComponent(productId)}`;
 }

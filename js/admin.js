@@ -1920,4 +1920,4 @@ if (productImageFile && productImagePreview) {
     });
 }
 
-migrateOldProductImages();
+//migrateOldProductImages();

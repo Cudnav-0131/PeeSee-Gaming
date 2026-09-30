@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Danh mục sản phẩm - PEESEE</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/category.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div id="header"></div>
+
+
+    <main class="category-page">
+
+        <!-- TIÊU ĐỀ -->
+        <div class="category-header">
+
+            <div>
+                <h1 id="category-title">
+                    Sản phẩm
+                </h1>
+
+                <p id="category-count">
+                    Đang hiển thị sản phẩm
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- KHU VỰC DANH MỤC -->
+        <div class="category-container">
+
+
+            <!-- =========================
+                 BỘ LỌC
+            ========================== -->
+
+            <aside class="category-filter">
+
+                <div class="filter-header">
+
+                    <div class="filter-title">
+                        <img src="../images/filter.png" alt="Bộ lọc">
+                        <span>Bộ lọc tìm kiếm</span>
+                    </div>
+
+                </div>
+
+
+                <!-- KHOẢNG GIÁ -->
+                <section class="filter-section">
+
+                    <div class="filter-section-title">
+                        <span>Khoảng giá</span>
+                        <button type="button" class="filter-toggle">
+                            ⌃
+                        </button>
+                    </div>
+
+
+                    <div class="filter-options">
+
+                        <label class="filter-option">
+                            <input type="checkbox" name="price-range" value="all" checked>
+                            <span>Tất cả</span>
+                        </label>
+
+
+                        <label class="filter-option">
+                            <input type="checkbox" name="price-range" value="15.9-18.6">
+                            <span>Từ 15.9 triệu - 18.6 triệu</span>
+                        </label>
+
+
+                        <label class="filter-option">
+                            <input type="checkbox" name="price-range" value="18.6-22.9">
+                            <span>Từ 18.6 triệu - 22.9 triệu</span>
+                        </label>
+
+
+                        <label class="filter-option">
+                            <input type="checkbox" name="price-range" value="22.9-25">
+                            <span>Từ 22.9 triệu - 25 triệu</span>
+                        </label>
+
+
+                        <label class="filter-option">
+                            <input type="checkbox" name="price-range" value="25-31.5">
+                            <span>Từ 25 triệu - 31.5 triệu</span>
+                        </label>
+
+
+                        <label class="filter-option">
+                            <input type="checkbox" name="price-range" value="31.5-50">
+                            <span>Từ 31.5 triệu - 50 triệu</span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="custom-price-title">
+                        Hoặc nhập khoảng giá phù hợp với bạn:
+                    </div>
+
+
+                    <div class="custom-price">
+
+                        <input type="number" id="min-price" placeholder="15.990.000đ" min="0">
+
+                        <span>~</span>
+
+                        <input type="number" id="max-price" placeholder="49.990.000đ" min="0">
+
+                    </div>
+
+
+                    <div class="price-range">
+
+                        <input type="range" id="price-min-range" min="0" max="100000000" value="0" step="100000">
+
+                        <input type="range" id="price-max-range" min="0" max="100000000" value="100000000"
+                            step="100000">
+
+                    </div>
+
+                </section>
+
+
+                <!-- RAM -->
+                <section class="filter-section">
+
+                    <div class="filter-section-title">
+
+                        <span>RAM</span>
+
+                        <button type="button" class="filter-toggle">
+                            ⌃
+                        </button>
+
+                    </div>
+
+
+                    <div class="filter-buttons">
+
+                        <button type="button" class="filter-chip" data-filter="ram" data-value="8">
+                            8 GB
+                        </button>
+
+                        <button type="button" class="filter-chip" data-filter="ram" data-value="12">
+                            12 GB
+                        </button>
+
+                        <button type="button" class="filter-chip" data-filter="ram" data-value="16">
+                            16 GB
+                        </button>
+
+                        <button type="button" class="filter-chip" data-filter="ram" data-value="32">
+                            32 GB
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- SSD -->
+                <section class="filter-section">
+
+                    <div class="filter-section-title">
+
+                        <span>SSD</span>
+
+                        <button type="button" class="filter-toggle">
+                            ⌃
+                        </button>
+
+                    </div>
+
+
+                    <div class="filter-buttons">
+
+                        <button type="button" class="filter-chip" data-filter="ssd" data-value="256">
+                            256 GB
+                        </button>
+
+                        <button type="button" class="filter-chip" data-filter="ssd" data-value="512">
+                            512 GB
+                        </button>
+
+                        <button type="button" class="filter-chip" data-filter="ssd" data-value="1024">
+                            1 TB
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- MÀU SẮC -->
+                <section class="filter-section">
+
+                    <div class="filter-section-title">
+
+                        <span>Màu sắc</span>
+
+                        <button type="button" class="filter-toggle">
+                            ⌃
+                        </button>
+
+                    </div>
+
+
+                    <div class="filter-options">
+
+                        <label class="filter-option">
+
+                            <input type="checkbox" name="color" value="all" checked>
+
+                            <span>Tất cả</span>
+
+                        </label>
+
+
+                        <label class="filter-option">
+
+                            <input type="checkbox" name="color" value="đen">
+
+                            <span>Đen</span>
+
+                        </label>
+
+
+                        <label class="filter-option">
+
+                            <input type="checkbox" name="color" value="trắng">
+
+                            <span>Trắng</span>
+
+                        </label>
+
+
+                        <label class="filter-option">
+
+                            <input type="checkbox" name="color" value="xám">
+
+                            <span>Xám</span>
+
+                        </label>
+
+                    </div>
+
+                </section>
+
+
+            </aside>
+
+
+            <!-- =========================
+                 DANH SÁCH SẢN PHẨM
+            ========================== -->
+
+            <section class="category-products">
+
+                <div class="category-products-header">
+
+                    <h2 id="category-products-title">
+                        Sản phẩm
+                    </h2>
+
+                    <select id="category-sort">
+
+                        <option value="default">
+                            Sắp xếp mặc định
+                        </option>
+
+                        <option value="price-asc">
+                            Giá thấp đến cao
+                        </option>
+
+                        <option value="price-desc">
+                            Giá cao đến thấp
+                        </option>
+
+                        <option value="name-asc">
+                            Tên A → Z
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div id="category-product-list" class="category-product-list">
+                    <!-- Sản phẩm sẽ được JavaScript hiển thị -->
+                </div>
+
+
+                <div id="category-no-result" class="category-no-result hidden">
+                    Không tìm thấy sản phẩm phù hợp.
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <div id="footer"></div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="../js/storage.js"></script>
+    <script src="../js/image-storage.js"></script>
+    <script src="../js/category.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
+
+</body>
+
+</html>

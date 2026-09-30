@@ -380,3 +380,25 @@ function increaseDetailQuantity() {
         alert(`Sản phẩm chỉ còn ${stock} cái.`);
     }
 }
+
+quantityInput.addEventListener("input", function () {
+
+    let value = this.value.replace(/\D/g, "");
+
+    if (value === "") {
+        this.value = "";
+        return;
+    }
+
+    let quantity = Number(value);
+
+    if (quantity < 1) {
+        quantity = 1;
+    }
+
+    if (quantity > stock) {
+        quantity = stock;
+    }
+
+    this.value = quantity;
+});
